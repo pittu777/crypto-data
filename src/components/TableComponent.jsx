@@ -1,12 +1,14 @@
 import React from 'react'
 import { useContext } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
+import Pagination from './Pagination';
 
 const TableComponent = () => {
-
-  let { cryptoData } = useContext(CryptoContext);
+  
+  let { cryptoData, currency } = useContext(CryptoContext);
 
   return (
+    <>
     <div className="flex flex-col mt-9 border border-gray-100 rounded">
       {
         cryptoData ? <table className="w-full table-auto">
@@ -58,7 +60,7 @@ const TableComponent = () => {
                   <td className="py-4">{
                     new Intl.NumberFormat("en-IN",{
                       style:"currency",
-                      currency:"usd"
+                      currency: currency
                     }).format(data.current_price)
                   }</td>
                   <td className="py-4">{data.total_volume}</td>
@@ -87,7 +89,23 @@ const TableComponent = () => {
 
 
 
+
     </div>
+    <div className="flex items-center justify-between mt-4 capitalize h-[2rem]">
+        <span>
+          Data provided by{" "}
+          <a
+            className="text-cyan"
+            href="http://www.coingecko.com"
+            rel="noreferrer"
+            target={"_blank"}
+          >
+            CoinGecko
+          </a>
+        </span>
+        <Pagination />
+      </div>
+    </>
   )
 }
 
